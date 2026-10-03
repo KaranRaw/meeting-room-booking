@@ -1,0 +1,21 @@
+MEETING ROOM BOOKING - TRANSFER PACKAGE
+
+Nothing was installed or downloaded on the source office PC.
+Tests, runtime behavior, production build, and deployed links are NOT verified yet.
+
+1. Extract this ZIP on your other PC.
+2. Open README.md for prerequisites and exact setup commands.
+3. Install Node.js 22, Python 3.12, and PostgreSQL (or Docker) there.
+4. Start PostgreSQL; create the backend .env from its example.
+5. Install backend requirements, initialize the database, start FastAPI.
+6. Create frontend .env.local from its example, npm install, npm run dev.
+7. Open http://localhost:3000 and http://localhost:8000/docs.
+8. Follow docs/TESTING.md, including the separate PostgreSQL test database.
+9. Follow docs/DEPLOYMENT.md for GitHub, Render, and Vercel.
+10. Test the REAL deployed links before submitting them.
+
+repository-history.bundle contains the local Git commits.
+README.md explains how to restore that history on your PC.
+
+This ZIP contains source and instructions, not installed dependencies.
+Internet access on the other PC is needed for setup and hosting.

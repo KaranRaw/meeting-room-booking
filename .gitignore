@@ -1,0 +1,18 @@
+# Environment files can contain database credentials.
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+node_modules/
+.next/
+*.tsbuildinfo
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db
+*.zip
+repository-history.bundle
