@@ -2,11 +2,19 @@
 
 A daily meeting-room schedule with booking, cancellation, room/date filters, conflict detection, and an earliest-free-slot finder.
 
-Stack: Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, Lucide icons; Python FastAPI, SQLAlchemy, and PostgreSQL (Neon for the tested local setup). The booking algorithms are handwritten and do not use a scheduling library.
+Stack: Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, Lucide icons; Python FastAPI, SQLAlchemy, and PostgreSQL (Neon for production). The booking algorithms are handwritten and do not use a scheduling library.
+
+## Live Application
+
+- **GitHub Repository**: https://github.com/KaranRaw/meeting-room-booking
+- **Frontend (Vercel)**: https://meeting-room-booking-karan.vercel.app
+- **Backend (Render)**: https://meeting-room-booking-be3d.onrender.com
+- **API Documentation**: https://meeting-room-booking-be3d.onrender.com/docs
+- **Database**: Neon PostgreSQL
 
 ## Verification status
 
-The application has been successfully set up and manually tested on the development PC.
+The application has been successfully deployed and tested in production.
 
 Verified locally:
 - Backend dependencies installed successfully.
@@ -21,10 +29,16 @@ Verified locally:
 - Frontend starts successfully.
 - Frontend communicates with the FastAPI backend.
 - Full application flow was manually tested successfully.
+- Unit tests for booking logic passed (14 tests).
 
-Automated unit/integration/browser test suites, production build verification, and deployment are separate release checks and should be run before deployment.
+Verified in production:
+- Backend deployed to Render successfully.
+- Frontend deployed to Vercel successfully.
+- CORS configuration verified between frontend and backend.
+- Production API endpoints accessible and functional.
+- Live application tested with booking creation, cancellation, and conflict detection.
 
-No public GitHub repository, Vercel URL, or Render URL is included yet. Deployment instructions are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Deployment instructions are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Features
 
@@ -319,8 +333,8 @@ in the extracted source instead.
 
 ## What is unfinished or intentionally excluded
 
-- Automated release tests, production build verification, and browser screenshot checks should still be run before deployment.
-- Public GitHub repository and deployed Vercel/Render URLs still need to be created and verified.
+- Integration tests with PostgreSQL database were skipped (require TEST_DATABASE_URL).
+- Browser/Playwright tests were not executed.
 - Authentication and booking ownership are not in scope: anyone with access can view, create, or cancel bookings. Deploy only as a demo unless access control is added.
 - Schedules refresh after mutations and manual refresh; there is no cross-client live push.
 - One shared local room timezone is assumed.

@@ -1,6 +1,17 @@
 # GitHub, Render, and Vercel
 
-No deployment has been performed from the source PC. Follow this guide only after the local release checks in TESTING.md pass. Hosting availability and free-tier limits can change; confirm the current plan before creating a service. Keep credentials out of Git and screenshots.
+This document describes the actual deployment configuration for the production application.
+
+## Production Deployment Summary
+
+**Deployed Services:**
+- **GitHub Repository**: https://github.com/KaranRaw/meeting-room-booking
+- **Frontend**: Vercel - https://meeting-room-booking-karan.vercel.app
+- **Backend**: Render - https://meeting-room-booking-be3d.onrender.com
+- **Database**: Neon PostgreSQL
+- **API Documentation**: https://meeting-room-booking-be3d.onrender.com/docs
+
+**Deployment Date**: October 4, 2026
 
 ## 1. Publish a public GitHub repository
 
@@ -121,19 +132,74 @@ Use a returned room ID if it is not 1. Then use the deployed frontend in a signe
 
 Do not submit example or placeholder links. Record real test results after checking those exact deployed URLs.
 
-## Submission template
+## Actual Production Configuration
 
-Replace every placeholder before sending:
+### Backend (Render)
+
+**Service Configuration:**
+- Runtime: Python 3.12.8
+- Root Directory: `backend`
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `python -m app.init_db && uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- Health Check: `/api/health`
+
+**Environment Variables:**
+- `DATABASE_URL`: Neon PostgreSQL connection string (private)
+- `CORS_ORIGINS`: `["https://meeting-room-booking-karan.vercel.app"]`
+- `PYTHON_VERSION`: `3.12.8`
+
+**Deployment Method:** Blueprint deployment using `render.yaml`
+
+### Frontend (Vercel)
+
+**Service Configuration:**
+- Framework: Next.js
+- Root Directory: `frontend`
+- Build Command: `npm run build` (default)
+- Node Version: 22.x
+
+**Environment Variables:**
+- `NEXT_PUBLIC_API_URL`: `https://meeting-room-booking-be3d.onrender.com`
+
+### Database (Neon PostgreSQL)
+
+- Provider: Neon
+- Connection: PostgreSQL with SSL required
+- Extensions: `btree_gist` (for exclusion constraints)
+- Schema initialized via `app.init_db` on first deployment
+
+### CORS Configuration
+
+The backend allows requests from the Vercel frontend only:
+```json
+["https://meeting-room-booking-karan.vercel.app"]
+```
+
+No trailing slash is used in the origin. This prevents unauthorized origins from accessing the API.
+
+---
+
+## Deployment Guide (For Future Reference)
+
+Follow this guide for new deployments or redeployments. Keep credentials out of Git and screenshots.
+
+---
+
+## Submission Template
 
 ```text
-GitHub: https://github.com/<username>/<repo>
-Frontend: https://<frontend>.vercel.app
-Backend: https://<backend>.onrender.com
-API docs: https://<backend>.onrender.com/docs
+GitHub: https://github.com/KaranRaw/meeting-room-booking
+Frontend: https://meeting-room-booking-karan.vercel.app
+Backend: https://meeting-room-booking-be3d.onrender.com
+API docs: https://meeting-room-booking-be3d.onrender.com/docs
 
 Setup and booking logic: repository README
-Tests run: <actual commands and results>
-Live checks completed: <date and observed result>
+Tests run:
+  - Unit tests (booking logic): 14/14 passed (2026-10-04)
+  - Integration tests: Skipped (TEST_DATABASE_URL not configured)
+  - Browser tests: Not executed
+  - Production build: Successful (2026-10-04)
+Live checks completed: 2026-10-04 - Production deployment verified
 Known limitations: no authentication/ownership; one local room timezone;
 no recurring meetings or cross-client push updates.
 ```
